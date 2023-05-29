@@ -1,26 +1,38 @@
-import './App.css';
-import logo from './logo.svg';
+import {
+    createBrowserRouter,
+    Outlet,
+  } from "react-router-dom";
+import Favorites from "./components/Favorites";
+import HomePage from "./components/HomePage";
+import Navbar from "./components/Navbar";
+import ErrorPage from "./ErrorPage"
 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <button>Get started...</button>
-        </a>
-      </header>
-    </div>
-  );
-}
+const AppLayout = () => {
+    return (
+      <>
+        <Navbar />
+        <Outlet />
+      </>
+    );
+  };
+  
+  const router = createBrowserRouter([
+    {
+      element: <AppLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "/",
+          element: <HomePage />,
+        },
+        {
+          path: "Favorites",
+          element: <Favorites />,
+        },
+      ],
+    },
+  ]);
 
-export default App;
+
+  export default router
